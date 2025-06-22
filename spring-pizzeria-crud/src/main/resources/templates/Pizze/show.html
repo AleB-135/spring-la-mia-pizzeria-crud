@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{fragments/head :: head ('Pizze')}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizze</title>
+</head>
+
+<body>
+    <main class="container">
+        <section class="title row">
+            <div class="col-12 text-center mt-3">
+                <h1>Selected pizza:</h1>
+                <br>
+            </div>
+        </section>
+
+        <div class="pizza row justify-content-center">
+            <article class="col-8 card">
+                <div class="card-body mx-2">
+                    <h1 class="card-title text-center" th:text="${Pizza.name}"></h1>
+
+                    <div class="text-center">
+                        <img th:src="*{Pizza.imgUrl}" class="card-img-top w-75" alt="Single pizza image">
+                    </div>
+
+                    <h3 class="card-text mt-2" th:text="${Pizza.description}"></h3>
+
+                    <h5>Con il prezzo di:
+                    <span class="card-text" th:text="${Pizza.price}"></span>
+                    </h5>
+
+                    <h6 class="card-footer">Con l'id numero:
+                        <span th:text="${Pizza.id}"></span>
+                    </h6>
+
+                </div>
+            </article>
+        </div>
+    </main>
+</body>
+
+</html>
