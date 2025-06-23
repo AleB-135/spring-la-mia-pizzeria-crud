@@ -8,7 +8,23 @@
 </head>
 <body>
 
-    <h1>Homepage</h1>
+    <header>
+         <nav th:replace="~{fragments/navbar :: navbar ('Spring Pizzeria Crud')}"></head>
+    </header>
+   
+    <main class="container">
+        <section class="title row">
+            <div class="col-12">
+
+                <h1 class="text-center mt-5">
+                    Welcome to the Spring Pizzeria!
+                </h1>
+            
+            </div>
+        </section>
+
+    </main>
+
     
 </body>
 </html>

@@ -9,7 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 
 @Entity
@@ -21,16 +23,19 @@ public class Pizza implements Serializable{
     private Integer id;
     @Column(name = "pizza_name", nullable = false)
 
-    @NotNull
+    @NotBlank(message = "Name cannot be null, blank or empty")
     private String name;
 
-    @Lob
+    @NotBlank(message = "Description cannot be null, blank or empty")
+    @Size(max = 2000, message = "Description cannot be longer than 2000 characters")
     private String description;
 
+    // @Lob = Long Object
     @Lob
+    @NotBlank(message = "Image Url must not be null, blank or empty")
     private String imgUrl;
 
-    @NotNull
+    @Min(value = 1)
     private float price;
 
     public Pizza (){};
