@@ -1,10 +1,12 @@
 package org.lessons.java.spring.crud.spring_pizzeria_crud.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.lessons.java.spring.crud.spring_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring.crud.spring_pizzeria_crud.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.validation.Valid;
 
@@ -42,6 +45,9 @@ public class PizzeController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
+
+        Optional<Pizza> pizzaOptional = pizzaRepository.findById(id);
+        if (pizzaOptional.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no pizza with id " + id);
         model.addAttribute("Pizza", pizzaRepository.findById(id).get());
         return "pizze/show";
     }
@@ -65,7 +71,11 @@ public class PizzeController {
 
     @GetMapping ("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
-        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+
+        Optional<Pizza> pizzaOptional = pizzaRepository.findById(id);
+        if (pizzaOptional.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no pizza with id " + id);
+
+        model.addAttribute("pizza", pizzaOptional.get());
         return "pizze/edit";
     }
 
